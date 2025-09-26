@@ -1,18 +1,13 @@
-// SQRT.asm
-// floor(sqrt(R0)) -> R1
-
 @19
-M=0            // result = 0
+M=0            // Reiniciamos siempre el resultado a 0
 
-@100
-D=A
 @18
-M=D
+D=M
 @temp
-M=D            // temp = R0
+M=D            // Leemos lo que esta en la posicion 18 y lo "guardamos" en un temporal para operar
 
 @i
-M=1            // i = 1  (odd numbers: 1,3,5,...)
+M=1            // i es el numero impar que vamos a estar actualizando
 
 (LOOP)
     @temp
@@ -20,23 +15,23 @@ M=1            // i = 1  (odd numbers: 1,3,5,...)
     @i
     D=D-M
     @END
-    D;JLT      // if temp - i < 0 -> done
+    D;JLT      // Si [temp - i < 0=] entonces terminamos
 
     @i
     D=M
     @temp
-    M=M-D      // temp -= i
+    M=M-D      // Al temporal le restamos el impar
 
     @19
-    M=M+1      // result++
+    M=M+1      // En @19 guardamos el numero de iteraciones
 
     @i
     M=M+1
-    M=M+1      // i += 2
+    M=M+1      // Convertimos i al siguiente impar
 
     @LOOP
     0;JMP
 
 (END)
 @END
-0;JMP          // halt (spin)
+0;JMP
